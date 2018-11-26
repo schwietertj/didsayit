@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace DidSayIt
 {
@@ -19,6 +14,14 @@ namespace DidSayIt
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseKestrel(options => { options.Listen(IPAddress.Any, 5000);
+                    options.Listen(IPAddress.Any, 5001,
+                        configure =>
+                        {
+                            configure.UseHttps(Environment.GetEnvironmentVariable("certname") ?? throw new Exception("Pfx cert required."),
+                                Environment.GetEnvironmentVariable("certpass") ?? throw new Exception("Pfx password required."));
+                        });
+                })
                 .UseStartup<Startup>();
     }
 }

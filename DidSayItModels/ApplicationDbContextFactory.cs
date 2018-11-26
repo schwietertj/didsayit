@@ -20,6 +20,7 @@ namespace DidSayItModels
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
             optionsBuilder.UseMySql(Environment.GetEnvironmentVariable("connectionstring") ?? throw new NullReferenceException("connectionstring environment variable is null."));
+            //optionsBuilder.UseSqlite("Filename=didsayit.db");
 
             return new ApplicationDbContext(optionsBuilder.Options);
         }
