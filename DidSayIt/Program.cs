@@ -9,6 +9,7 @@ namespace DidSayIt
     {
         public static void Main(string[] args)
         {
+            DotNetEnv.Env.Load();
             CreateWebHostBuilder(args).Build().Run();
         }
 

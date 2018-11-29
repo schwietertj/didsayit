@@ -1,0 +1,35 @@
+﻿@model DidSayItModels.App.Subdomain
+@{
+    ViewData["Title"] = Model.Name ?? "Unnamed subdomain";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <a asp-controller="Admin" asp-action="CreateContent" asp-route-subdomainID="@Model.Id" class="btn btn-default">Create</a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Quote</th>
+                <th>Notes</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var row in Model.Contents.OrderBy(x => x.Created))
+            {
+                <tr>
+                    <td class="limitText" data-len="100">
+                        <a asp-controller="Admin" asp-action="EditContent" asp-route-subdomainId="@row.SubdomainId" asp-route-id="@row.Id">@row.Text</a>
+                    </td>
+                    <td class="limitText" data-len="150">
+                        @row.Notes
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+﻿@model DidSayItModels.App.Content
+
+<div class="form-group">
+    <h3>Quote</h3>
+    <input type="text" asp-for="Text" class="form-control"/>
+</div>
+
+<div class="form-group">
+    <h3>Details</h3>
+    <textarea asp-for="Notes" rows="10"></textarea>
+</div>
+
+<div class="checkbox">
+    <label>
+        <input type="checkbox" asp-for="Publish"> Publish
+    </label>
+</div>
+
+<div class="checkbox">
+    <label>
+        <input type="checkbox" asp-for="Active"> Active
+    </label>
+</div>
+
+<input type="hidden" asp-for="Id" />
+<input type="hidden" asp-for="SubdomainId" />
+<input type="hidden" asp-for="Created" />

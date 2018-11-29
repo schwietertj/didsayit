@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DidSayItModels
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, long>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Subdomain> Subdomains { get; set; }
         public DbSet<Content> Contents { get; set; }

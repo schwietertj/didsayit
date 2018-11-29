@@ -1,0 +1,39 @@
+﻿@model DidSayItModels.App.Content
+@{
+    ViewData["Title"] = "Edit Content";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-controller="Admin" asp-action="EditContent" asp-route-subdomainId="@Model.SubdomainId" asp-route-id="@Model.Id" method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <partial name="_adminContent" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-md-offset-6 text-right">
+                    <input type="submit" class="btn btn-primary" value="Save" />
+                </div>
+                <div class="col-md-3 text-right">
+                    <a asp-controller="Admin" asp-action="Subdomain" asp-route-id="@Model.SubdomainId" class="btn btn-default">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            new SimpleMDE({
+                element: document.getElementById("Notes"),
+                spellChecker: false
+            });
+        });
+    </script>
+}

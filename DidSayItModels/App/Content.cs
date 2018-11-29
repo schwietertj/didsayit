@@ -11,6 +11,8 @@ namespace DidSayItModels.App
         public string Text { get; set; }
         public string Notes { get; set; }
 
+        public bool Publish { get; set; } = false;
+
         [ForeignKey("SubdomainId")]
         public Subdomain Subdomain { get; set; }
 

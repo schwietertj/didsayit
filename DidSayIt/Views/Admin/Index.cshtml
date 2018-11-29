@@ -1,7 +1,69 @@
-﻿
+﻿@using Newtonsoft.Json
+@model IEnumerable<Subdomain>
+
 @{
     ViewData["Title"] = "Index";
 }
 
 <h2>Index</h2>
 
+<div class="row">
+    <div class="col-md-6">
+        @if (Model.Any())
+        {
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Subdomain</th>
+                    <th>Quote Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var row in Model)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Admin" asp-action="Subdomain" asp-route-id="@row.Id">@row.Name</a>
+                        </td>
+                        <td>@row.Contents.Count()</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="help-block">No subdomains have been created yet!</p>
+        }
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Add New Subdomain</label>
+            <input id="sdName" type="text" class="form-control" max-length="64"/>
+        </div>
+        <input id="sdCreate" type="button" class="btn btn-primary" value="Create" />
+    </div>
+</div>
+
+<pre>
+@JsonConvert.SerializeObject(Model, new JsonSerializerSettings { Formatting = Formatting.Indented, ReferenceLoopHandling = ReferenceLoopHandling.Ignore})
+</pre>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            $('#sdCreate').click(function() {
+                if ($('#sdName').val().length === 0) {
+                    alert('name required');
+                } else {
+                    var url = '@Url.Action("CreateSubdomain", "Admin")' + '?name=' + $('#sdName').val();
+                    var jqxr = $.post(url, function() {
+                            location.reload();
+                    })
+                    .fail(function () { alert('error'); });
+                }
+            });
+        });
+    </script>
+}

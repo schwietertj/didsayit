@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace DidSayItModels.Identity
 {
-    public class ApplicationUser : IdentityUser<long>
+    public class ApplicationUser : IdentityUser
     {
     }
 }

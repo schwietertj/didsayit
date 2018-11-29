@@ -2,9 +2,9 @@
 
 namespace DidSayIt.Data
 {
-    public class AppSettings
+    public static class AppSettings
     {
-        private T Get<T>(string variableName)
+        public static T Get<T>(string variableName, bool throwIfEmpty = false)
         {
             if (Environment.GetEnvironmentVariable(variableName) is null)
             {
@@ -13,7 +13,9 @@ namespace DidSayIt.Data
 
             if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(variableName)))
             {
-                throw new Exception($"The environment variable '{variableName}' is empty.");
+                return throwIfEmpty
+                    ? throw new Exception($"The environment variable '{variableName}' is empty.")
+                    : default(T);
             }
 
             try
@@ -24,7 +26,6 @@ namespace DidSayIt.Data
             {
                 return default(T);
             }
-
         }
     }
 }

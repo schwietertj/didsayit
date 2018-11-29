@@ -9,16 +9,17 @@ namespace DidSayIt.Repository
 {
     public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
-        private readonly ApplicationDbContext _dbContext;
+        internal readonly ApplicationDbContext _dbContext;
         
         protected GenericRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public IEnumerable<TEntity> GetAll(bool includeInactive = false)
+        public virtual IQueryable<TEntity> GetAll(bool includeInactive = false)
         {
-            return includeInactive ? _dbContext.Set<TEntity>().AsNoTracking() : _dbContext.Set<TEntity>().AsNoTracking().Where(x => x.Active);
+            //return includeInactive ? _dbContext.Set<TEntity>().AsNoTracking() : _dbContext.Set<TEntity>().AsNoTracking().Where(x => x.Active);
+            return includeInactive ? _dbContext.Set<TEntity>() : _dbContext.Set<TEntity>().Where(x => x.Active);
         }
 
         public async Task<TEntity> GetById(long id)
